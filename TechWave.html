@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechWave Pro - IT решения</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #564fd8;
+            --secondary: #ff6584;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #f8f9fa;
+            --gray: #8a8f99;
+            --light-gray: #e9ecef;
+            --success: #28a745;
+            --warning: #ffc107;
+            --error: #dc3545;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --parallax-intensity: 0.5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(108, 99, 255, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 101, 132, 0.15) 0%, transparent 20%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .header-scrolled {
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--light);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .logo:hover i {
+            transform: rotate(15deg);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: var(--primary);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .auth-buttons button {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .signup-btn {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .auth-buttons button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(108, 99, 255, 0.4);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+        }
+
+        .user-greeting {
+            margin-right: 15px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 101, 132, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .parallax-element {
+            position: absolute;
+            transition: transform 0.1s ease-out;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: fadeUp 1s forwards 0.3s;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            color: var(--gray);
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 25px;
+        }
+
+        .btn {
+            padding: 16px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            letter-spacing: 0.5px;
+            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 20px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(108, 99, 255, 0.5);
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            max-width: 700px;
+            z-index: 1;
+            animation: float 8s ease-in-out infinite;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Sections */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        .section-title.animated {
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform 0.8s ease, opacity 0.8s ease;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 30px auto 0;
+            font-size: 1.2rem;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 45px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .feature-card.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 40px;
+            background: var(--primary);
+            top: -40px;
+            left: -25%;
+            z-index: -1;
+            transition: var(--transition);
+            transform: rotate(-5deg);
+        }
+
+        .feature-card:hover:before {
+            height: 200%;
+            top: -50%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.2);
+            border-color: rgba(108, 99, 255, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover h3 {
+            color: white;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Pricing */
+        .pricing {
+            background: radial-gradient(circle at top right, rgba(42, 42, 60, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px 35px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .pricing-card.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary);
+            transform: scale(1.05) translateY(40px);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.25);
+        }
+
+        .pricing-card.popular.animated {
+            transform: scale(1.05) translateY(0);
+        }
+
+        .popular-tag {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--primary);
+            color: white;
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .price {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .price span {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 35px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .pricing-features li i {
+            color: var(--success);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Reviews */
+        .reviews-container {
+            max-width: 850px;
+            margin: 0 auto;
+            position: relative;
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .reviews-container.animated {
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform 0.8s ease, opacity 0.8s ease;
+        }
+
+        .reviews-slider {
+            display: flex;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .review-card {
+            min-width: 100%;
+            padding: 50px;
+            transition: transform 0.5s ease;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .review-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 25px;
+            border: 3px solid var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .review-info h4 {
+            margin-bottom: 8px;
+            font-size: 1.5rem;
+        }
+
+        .review-rating {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        .review-text {
+            font-style: italic;
+            color: var(--light-gray);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            padding-left: 20px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .review-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            gap: 15px;
+        }
+
+        .nav-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-dot.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+
+        /* Forum */
+        .forum {
+            background: radial-gradient(circle at center, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(108, 99, 255, 0.1)" stroke-width="1"/></svg>');
+            background-size: 20px 20px;
+        }
+
+        .forum-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .forum-container.animated {
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform 0.8s ease, opacity 0.8s ease;
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .user-details {
+            flex-grow: 1;
+        }
+
+        .user-details label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .user-details input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .user-details input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+        }
+
+        .user-details input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .username-error {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .forum-categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background: var(--primary);
+        }
+
+        .forum-posts {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .post {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            animation: fadeIn 0.5s ease-out;
+            border-left: 4px solid var(--primary);
+            position: relative;
+            padding-right: 50px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .post-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 18px;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .post-author {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .post-time {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+
+        .post-content {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .post-category {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .post-category span {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .delete-post-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .delete-post-btn:hover {
+            color: #dc3545;
+        }
+
+        .post-form {
+            margin-top: 35px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .post-category-select {
+            padding: 18px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            width: 200px;
+        }
+
+        .post-category-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+        }
+
+        .post-input {
+            flex-grow: 1;
+            padding: 18px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .post-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+        }
+
+        .post-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .post-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 0 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .post-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Auth Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close:hover {
+            color: var(--secondary);
+        }
+
+        .modal h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.3);
+        }
+
+        .modal .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .form-error {
+            color: var(--error);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gray);
+        }
+
+        .modal-footer a {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .modal-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 80px 0 40px;
+            border-top: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(8px);
+        }
+
+        .footer-links a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-7px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+        }
+
+        /* Page Content */
+        .page-content {
+            display: none;
+            min-height: 100vh;
+            padding-top: 120px;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-53%) translateX(10px); }
+            100% { transform: translateY(-50%) translateX(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-image {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                background: rgba(26, 26, 46, 0.95);
+                backdrop-filter: blur(10px);
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                transform: translateY(-150%);
+                transition: var(--transition);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .nav-links li {
+                margin: 20px 0;
+            }
+            
+            .hero {
+                text-align: center;
+                padding-top: 100px;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+                padding: 0 20px;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                position: relative;
+                width: 100%;
+                max-width: 500px;
+                margin: 60px auto 0;
+                top: 0;
+                transform: none;
+                animation: float 8s ease-in-out infinite;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+            
+            .pricing-card.popular.animated {
+                transform: scale(1);
+            }
+            
+            .forum-container {
+                padding: 0 15px;
+            }
+
+            .auth-buttons .user-greeting {
+                display: none;
+            }
+
+            .post-form {
+                flex-wrap: wrap;
+            }
+
+            .post-category-select {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.3rem;
+            }
+            
+            .btn {
+                padding: 14px 30px;
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .auth-buttons {
+                display: none;
+            }
+
+            .mobile-toggle + .auth-buttons {
+                display: flex;
+            }
+            
+            .post-form {
+                flex-direction: column;
+            }
+            
+            .post-button {
+                padding: 16px;
+            }
+
+            .post-category-select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo" data-page="home"><i class="fas fa-wave-square"></i>TechWave Pro</a>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active" data-page="home">Главная</a></li>
+                    <li><a href="#" class="nav-link" data-page="features">Возможности</a></li>
+                    <li><a href="#" class="nav-link" data-page="pricing">Цены</a></li>
+                    <li><a href="#" class="nav-link" data-page="reviews">Отзывы</a></li>
+                    <li><a href="#" class="nav-link" data-page="forum">Форум</a></li>
+                </ul>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="login-btn" id="login-btn">Войти</button>
+                    <button class="signup-btn" id="signup-btn">Регистрация</button>
+                </div>
+                <div class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home" class="page-content active">
+        <div class="hero">
+            <div class="parallax-bg" id="parallax-bg"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Инновационные IT решения для вашего бизнеса</h1>
+                    <p>Улучшите свои бизнес-процессы с помощью наших передовых технологий. Быстрое внедрение, надежная поддержка и масштабируемые решения.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary" data-page="pricing">Начать сейчас</a>
+                        <a href="#" class="btn btn-secondary">Узнать больше</a>
+                    </div>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="IT Solutions" class="hero-image">
+        </div>
+        
+        <section class="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Наши Возможности</h2>
+                    <p>Мы предлагаем широкий спектр IT решений, которые помогут вашему бизнесу расти и развиваться</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3>Облачные решения</h3>
+                        <p>Полностью управляемые облачные сервисы для хранения данных и запуска приложений с высокой доступностью.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Кибербезопасность</h3>
+                        <p>Комплексная защита ваших данных и систем от киберугроз с использованием передовых технологий.</p>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Искусственный интеллект</h3>
+                        <p>Внедрение AI-решений для автоматизации процессов, аналитики данных и улучшения клиентского опыта.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Pricing Page -->
+    <section id="pricing" class="page-content pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши Тарифы</h2>
+                <p>Выберите подходящий план для вашего бизнеса. Все тарифы включают базовую поддержку и обновления.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card animate-on-scroll">
+                    <h3>Стартовый</h3>
+                    <div class="price">$19<span>/месяц</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> До 5 пользователей</li>
+                        <li><i class="fas fa-check"></i> 10 ГБ хранилища</li>
+                        <li><i class="fas fa-check"></i> Базовая поддержка</li>
+                        <li><i class="fas fa-times"></i> Интеграции</li>
+                        <li><i class="fas fa-times"></i> Расширенная аналитика</li>
+                    </ul>
+                    <button class="btn btn-primary">Выбрать</button>
+                </div>
+                <div class="pricing-card popular animate-on-scroll">
+                    <div class="popular-tag">Популярный</div>
+                    <h3>Бизнес</h3>
+                    <div class="price">$49<span>/месяц</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> До 20 пользователей</li>
+                        <li><i class="fas fa-check"></i> 50 ГБ хранилища</li>
+                        <li><i class="fas fa-check"></i> Приоритетная поддержка</li>
+                        <li><i class="fas fa-check"></i> Интеграции</li>
+                        <li><i class="fas fa-check"></i> Расширенная аналитика</li>
+                    </ul>
+                    <button class="btn btn-primary">Выбрать</button>
+                </div>
+                <div class="pricing-card animate-on-scroll">
+                    <h3>Премиум</h3>
+                    <div class="price">$99<span>/месяц</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Неограниченные пользователи</li>
+                        <li><i class="fas fa-check"></i> 200 ГБ хранилища</li>
+                        <li><i class="fas fa-check"></i> 24/7 поддержка</li>
+                        <li><i class="fas fa-check"></i> Все интеграции</li>
+                        <li><i class="fas fa-check"></i> Персональный менеджер</li>
+                    </ul>
+                    <button class="btn btn-primary">Выбрать</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Page -->
+    <section id="reviews" class="page-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>Отзывы Клиентов</h2>
+                <p>Узнайте, что говорят о нас наши довольные клиенты по всему миру</p>
+            </div>
+            <div class="reviews-container">
+                <div class="reviews-slider">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">АИ</div>
+                            <div class="review-info">
+                                <h4>Алексей Иванов</h4>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-text">
+                            "Мы перешли на платформу TechWave 6 месяцев назад и уже видим значительное улучшение производительности. Инструменты аналитики помогли нам оптимизировать рабочие процессы и сократить расходы на 20%."
+                        </div>
+                    </div>
+                </div>
+                <div class="review-nav">
+                    <div class="nav-dot active"></div>
+                    <div class="nav-dot"></div>
+                    <div class="nav-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Forum Page -->
+    <section id="forum" class="page-content forum">
+        <div class="container">
+            <div class="section-title">
+                <h2>Сообщество TechWave</h2>
+                <p>Присоединяйтесь к нашему сообществу, задавайте вопросы и делитесь опытом</p>
+            </div>
+            <div class="forum-container">
+                <div class="user-info">
+                    <div class="user-avatar" id="user-avatar">?</div>
+                    <div class="user-details">
+                        <label for="username">Ваше имя:</label>
+                        <input type="text" id="username" placeholder="Введите ваш ник">
+                        <div class="username-error" id="username-error">Этот ник уже занят!</div>
+                    </div>
+                </div>
+                <div class="forum-categories">
+                    <button class="category-btn active" data-category="all">Все</button>
+                    <button class="category-btn" data-category="help">Помощь</button>
+                    <button class="category-btn" data-category="chat">Общение</button>
+                    <button class="category-btn" data-category="interaction">Взаимодействие</button>
+                </div>
+                <div class="forum-posts" id="forum-posts">
+                    <!-- Posts will be added here dynamically -->
+                </div>
+                <div class="post-form">
+                    <select class="post-category-select" id="post-category">
+                        <option value="help">Помощь</option>
+                        <option value="chat">Общение</option>
+                        <option value="interaction">Взаимодействие</option>
+                    </select>
+                    <input type="text" class="post-input" id="post-input" placeholder="Напишите ваше сообщение...">
+                    <button class="post-button" id="post-button">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modals -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Вход в аккаунт</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Имя пользователя</label>
+                    <input type="text" id="login-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Пароль</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <div class="form-error" id="login-error"></div>
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </form>
+            <div class="modal-footer">
+                <p>Нет аккаунта? <a id="show-signup">Зарегистрируйтесь</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-username">Имя пользователя</label>
+                    <input type="text" id="signup-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Пароль</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm">Подтвердите пароль</label>
+                    <input type="password" id="signup-confirm" required>
+                </div>
+                <div class="form-error" id="signup-error"></div>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </form>
+            <div class="modal-footer">
+                <p>Уже есть аккаунт? <a id="show-login">Войдите</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>TechWave Pro</h3>
+                    <p>Инновационные IT решения для вашего бизнеса. Помогаем компаниям расти с помощью передовых технологий.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-page="home"><i class="fas fa-chevron-right"></i> Главная</a></li>
+                        <li><a href="#" data-page="features"><i class="fas fa-chevron-right"></i> Возможности</a></li>
+                        <li><a href="#" data-page="pricing"><i class="fas fa-chevron-right"></i> Цены</a></li>
+                        <li><a href="#" data-page="reviews"><i class="fas fa-chevron-right"></i> Отзывы</a></li>
+                        <li><a href="#" data-page="forum"><i class="fas fa-chevron-right"></i> Форум</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Ресурсы</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Блог</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Документация</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Видеоуроки</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Вебинары</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Поддержка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://t.me/weeaave" target="_blank"><i class="fab fa-telegram"></i> t.me/weeaave</a></li>
+                        <li>Единственные в России, которые помогают с кодом и не только!</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 TechWave Pro. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Parallax effect
+            const parallaxBg = document.getElementById('parallax-bg');
+            const parallaxElements = [];
+            
+            // Create parallax elements
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.className = 'parallax-element';
+                element.style.width = `${Math.random() * 30 + 10}px`;
+                element.style.height = `${Math.random() * 30 + 10}px`;
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                element.style.backgroundColor = i % 3 === 0 ? 'rgba(108, 99, 255, 0.3)' : 
+                                               i % 3 === 1 ? 'rgba(255, 101, 132, 0.3)' : 
+                                               'rgba(40, 167, 69, 0.3)';
+                element.style.borderRadius = Math.random() > 0.5 ? '50%' : '5px';
+                element.style.opacity = Math.random() * 0.5 + 0.2;
+                parallaxBg.appendChild(element);
+                parallaxElements.push(element);
+            }
+            
+            // Parallax effect handler
+            document.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                parallaxElements.forEach((element, index) => {
+                    const speed = (index % 5 + 1) * 0.02;
+                    const x = (mouseX - 0.5) * speed * 100;
+                    const y = (mouseY - 0.5) * speed * 100;
+                    
+                    element.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+            
+            // Navigation
+            const header = document.getElementById('header');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const navMenu = document.querySelector('.nav-links');
+            const pages = document.querySelectorAll('.page-content');
+            const usernameInput = document.getElementById('username');
+            const postInput = document.getElementById('post-input');
+            const postButton = document.getElementById('post-button');
+            const forumPosts = document.getElementById('forum-posts');
+            const userAvatar = document.getElementById('user-avatar');
+            const usernameError = document.getElementById('username-error');
+            const loginBtn = document.getElementById('login-btn');
+            const signupBtn = document.getElementById('signup-btn');
+            const authButtons = document.getElementById('auth-buttons');
+            const postCategory = document.getElementById('post-category');
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            // Auth modals
+            const loginModal = document.getElementById('login-modal');
+            const signupModal = document.getElementById('signup-modal');
+            const closeButtons = document.querySelectorAll('.close');
+            const showSignup = document.getElementById('show-signup');
+            const showLogin = document.getElementById('show-login');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const loginError = document.getElementById('login-error');
+            const signupError = document.getElementById('signup-error');
+            
+            // Registered usernames
+            const registeredUsernames = new Set(['admin', 'support', 'moderator', 'alex', 'maria', 'techguru']);
+            
+            // Load username from localStorage
+            const savedUsername = localStorage.getItem('forumUsername');
+            if (savedUsername) {
+                usernameInput.value = savedUsername;
+                updateAvatar(savedUsername);
+            }
+            
+            // Load current user from localStorage
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                updateHeader(currentUser);
+            }
+            
+            // Load forum posts from localStorage
+            const savedPosts = JSON.parse(localStorage.getItem('forumPosts')) || [];
+            savedPosts.forEach(post => {
+                addPostToForum(post);
+            });
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+                
+                // Animate on scroll
+                animateOnScroll();
+            });
+            
+            // Mobile menu toggle
+            mobileToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+            
+            // Navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Update active nav link
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target page
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                        if (page.id === targetPage) {
+                            page.classList.add('active');
+                        }
+                    });
+                    
+                    // Close mobile menu
+                    navMenu.classList.remove('active');
+                    
+                    // Scroll to top
+                    window.scrollTo(0, 0);
+                    
+                    // Trigger animations
+                    setTimeout(animateOnScroll, 100);
+                });
+            });
+            
+            // Footer links navigation
+            document.querySelectorAll('.footer-links a').forEach(link => {
+                if (link.hasAttribute('data-page')) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetPage = this.getAttribute('data-page');
+                        
+                        // Update active nav link
+                        navLinks.forEach(link => {
+                            if (link.getAttribute('data-page') === targetPage) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                        
+                        // Show target page
+                        pages.forEach(page => {
+                            page.classList.remove('active');
+                            if (page.id === targetPage) {
+                                page.classList.add('active');
+                            }
+                        });
+                        
+                        // Scroll to top
+                        window.scrollTo(0, 0);
+                        
+                        // Trigger animations
+                        setTimeout(animateOnScroll, 100);
+                    });
+                }
+            });
+            
+            // Animation on scroll
+            function animateOnScroll() {
+                const elements = document.querySelectorAll('.animate-on-scroll, .section-title, .reviews-container, .forum-container');
+                elements.forEach(element => {
+                    const position = element.getBoundingClientRect();
+                    if (position.top < window.innerHeight * 0.85) {
+                        element.classList.add('animated');
+                    }
+                });
+            }
+            
+            // Initial animations
+            setTimeout(() => {
+                document.querySelector('.section-title').classList.add('animated');
+                animateOnScroll();
+            }, 500);
+            
+            // Modal functionality
+            loginBtn.addEventListener('click', openLoginModal);
+            signupBtn.addEventListener('click', openSignupModal);
+            
+            closeButtons.forEach(btn => {
+                btn.addEventListener('click', closeModals);
+            });
+            
+            showSignup.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeModals();
+                openSignupModal();
+            });
+            
+            showLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeModals();
+                openLoginModal();
+            });
+            
+            function openLoginModal() {
+                loginModal.classList.add('active');
+            }
+            
+            function openSignupModal() {
+                signupModal.classList.add('active');
+            }
+            
+            function closeModals() {
+                loginModal.classList.remove('active');
+                signupModal.classList.remove('active');
+                loginError.style.display = 'none';
+                signupError.style.display = 'none';
+            }
+            
+            // Login form handler
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('login-username').value.trim();
+                const password = document.getElementById('login-password').value.trim();
+                
+                // Simple validation
+                if (!username || !password) {
+                    loginError.textContent = 'Пожалуйста, заполните все поля';
+                    loginError.style.display = 'block';
+                    return;
+                }
+                
+                // Simulate login (in a real app, this would be a server request)
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => u.username === username && u.password === password);
+                
+                if (user) {
+                    // Save user to localStorage
+                    localStorage.setItem('currentUser', JSON.stringify({ username }));
+                    updateHeader({ username });
+                    closeModals();
+                    
+                    // Update forum username
+                    usernameInput.value = username;
+                    updateAvatar(username);
+                    localStorage.setItem('forumUsername', username);
+                } else {
+                    loginError.textContent = 'Неверное имя пользователя или пароль';
+                    loginError.style.display = 'block';
+                }
+            });
+            
+            // Signup form handler
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('signup-username').value.trim();
+                const password = document.getElementById('signup-password').value.trim();
+                const confirm = document.getElementById('signup-confirm').value.trim();
+                
+                // Validation
+                if (!username || !password || !confirm) {
+                    signupError.textContent = 'Пожалуйста, заполните все поля';
+                    signupError.style.display = 'block';
+                    return;
+                }
+                
+                if (password !== confirm) {
+                    signupError.textContent = 'Пароли не совпадают';
+                    signupError.style.display = 'block';
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    signupError.textContent = 'Пароль должен быть не менее 6 символов';
+                    signupError.style.display = 'block';
+                    return;
+                }
+                
+                // Check if username is taken
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                if (users.some(u => u.username === username)) {
+                    signupError.textContent = 'Имя пользователя уже занято';
+                    signupError.style.display = 'block';
+                    return;
+                }
+                
+                // Save new user
+                users.push({ username, password });
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                // Log in new user
+                localStorage.setItem('currentUser', JSON.stringify({ username }));
+                updateHeader({ username });
+                closeModals();
+                
+                // Update forum username
+                usernameInput.value = username;
+                updateAvatar(username);
+                localStorage.setItem('forumUsername', username);
+            });
+            
+            // Update header based on auth state
+            function updateHeader(user) {
+                if (user) {
+                    authButtons.innerHTML = `
+                        <div class="user-greeting">Привет, ${user.username}!</div>
+                        <button class="logout-btn" id="logout-btn">Выйти</button>
+                    `;
+                    document.getElementById('logout-btn').addEventListener('click', logout);
+                } else {
+                    authButtons.innerHTML = `
+                        <button class="login-btn" id="login-btn">Войти</button>
+                        <button class="signup-btn" id="signup-btn">Регистрация</button>
+                    `;
+                    // Reattach event listeners
+                    document.getElementById('login-btn').addEventListener('click', openLoginModal);
+                    document.getElementById('signup-btn').addEventListener('click', openSignupModal);
+                }
+            }
+            
+            // Logout function
+            function logout() {
+                localStorage.removeItem('currentUser');
+                updateHeader(null);
+            }
+            
+            // Forum functionality
+            usernameInput.addEventListener('input', function() {
+                const username = this.value.trim();
+                
+                // Check if username is taken
+                if (registeredUsernames.has(username.toLowerCase())) {
+                    usernameError.style.display = 'block';
+                } else {
+                    usernameError.style.display = 'none';
+                    localStorage.setItem('forumUsername', username);
+                    updateAvatar(username);
+                }
+            });
+            
+            function updateAvatar(username) {
+                if (username) {
+                    userAvatar.textContent = username.charAt(0).toUpperCase();
+                    userAvatar.style.backgroundColor = getRandomColor();
+                } else {
+                    userAvatar.textContent = '?';
+                    userAvatar.style.backgroundColor = '#6c63ff';
+                }
+            }
+            
+            function getRandomColor() {
+                const colors = ['#ff6584', '#6c63ff', '#20c997', '#fd7e14', '#20c997', '#6f42c1'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            // Category filtering
+            categoryButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    filterPosts(category);
+                });
+            });
+            
+            function filterPosts(category) {
+                const allPosts = JSON.parse(localStorage.getItem('forumPosts')) || [];
+                let filteredPosts = allPosts;
+                
+                if (category !== 'all') {
+                    filteredPosts = allPosts.filter(post => post.category === category);
+                }
+                
+                // Clear the forum posts container
+                forumPosts.innerHTML = '';
+                
+                // Add filtered posts to the forum
+                filteredPosts.forEach(post => addPostToForum(post));
+            }
+            
+            postButton.addEventListener('click', function() {
+                const content = postInput.value.trim();
+                let username = usernameInput.value.trim();
+                const category = postCategory.value;
+                
+                // If user is logged in, use their username
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (currentUser) {
+                    username = currentUser.username;
+                }
+                
+                if (!username) {
+                    alert('Пожалуйста, введите ваше имя');
+                    return;
+                }
+                
+                if (registeredUsernames.has(username.toLowerCase())) {
+                    alert('Это имя пользователя уже занято! Пожалуйста, выберите другое.');
+                    return;
+                }
+                
+                if (!content) {
+                    alert('Пожалуйста, введите сообщение');
+                    return;
+                }
+                
+                const timestamp = new Date().toLocaleString('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                const post = {
+                    id: Date.now(),
+                    author: username,
+                    content: content,
+                    timestamp: timestamp,
+                    category: category,
+                    userId: currentUser ? currentUser.username : null
+                };
+                
+                addPostToForum(post);
+                
+                // Save post to localStorage
+                const posts = JSON.parse(localStorage.getItem('forumPosts')) || [];
+                posts.unshift(post);
+                localStorage.setItem('forumPosts', JSON.stringify(posts));
+                
+                // Clear input
+                postInput.value = '';
+            });
+            
+            postInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    postButton.click();
+                }
+            });
+            
+            function addPostToForum(post) {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+                postElement.dataset.id = post.id;
+                
+                const categoryText = {
+                    help: 'Помощь',
+                    chat: 'Общение',
+                    interaction: 'Взаимодействие'
+                };
+                
+                // Current forum name
+                const currentForumName = usernameInput.value.trim();
+                // Current logged in user
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                
+                // Determine if the current user can delete this post
+                let canDelete = false;
+                if (currentForumName === post.author) {
+                    canDelete = true;
+                } else if (currentUser && currentUser.username === post.userId) {
+                    canDelete = true;
+                }
+                
+                postElement.innerHTML = `
+                    <div class="post-header">
+                        <div class="post-avatar" style="background-color: ${getRandomColor()}">${post.author.charAt(0).toUpperCase()}</div>
+                        <div class="post-author">${post.author}</div>
+                        <div class="post-time">${post.timestamp}</div>
+                    </div>
+                    <div class="post-content">${post.content}</div>
+                    <div class="post-category">Категория: <span>${categoryText[post.category]}</span></div>
+                    ${canDelete ? `<button class="delete-post-btn"><i class="fas fa-trash"></i></button>` : ''}
+                `;
+                
+                // Add delete functionality if applicable
+                const deleteBtn = postElement.querySelector('.delete-post-btn');
+                if (deleteBtn) {
+                    deleteBtn.addEventListener('click', function() {
+                        if (confirm('Вы уверены, что хотите удалить этот пост?')) {
+                            // Remove from DOM
+                            postElement.remove();
+                            
+                            // Remove from localStorage
+                            const posts = JSON.parse(localStorage.getItem('forumPosts')) || [];
+                            const updatedPosts = posts.filter(p => p.id !== post.id);
+                            localStorage.setItem('forumPosts', JSON.stringify(updatedPosts));
+                        }
+                    });
+                }
+                
+                forumPosts.appendChild(postElement);
+            }
+            
+            // Initialize with sample posts
+            if (savedPosts.length === 0) {
+                const sampleDate = new Date();
+                sampleDate.setHours(sampleDate.getHours() - 2);
+                
+                const timestamp1 = sampleDate.toLocaleString('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                addPostToForum({
+                    id: Date.now(),
+                    author: 'ТехПоддержка',
+                    content: 'Добро пожаловать на форум TechWave Pro! Здесь вы можете задавать вопросы, делиться опытом и общаться с другими пользователями. Пожалуйста, соблюдайте правила сообщества.',
+                    timestamp: timestamp1,
+                    category: 'help'
+                });
+                
+                const sampleDate2 = new Date();
+                sampleDate2.setDate(sampleDate2.getDate() - 1);
+                
+                const timestamp2 = sampleDate2.toLocaleString('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                addPostToForum({
+                    id: Date.now(),
+                    author: 'Алексей',
+                    content: 'Отличная платформа! Особенно впечатлили возможности аналитики. Есть ли планы по расширению интеграций?',
+                    timestamp: timestamp2,
+                    category: 'interaction'
+                });
+                
+                const sampleDate3 = new Date();
+                sampleDate3.setDate(sampleDate3.getDate() - 3);
+                
+                const timestamp3 = sampleDate3.toLocaleString('ru-RU', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                addPostToForum({
+                    id: Date.now(),
+                    author: 'Мария',
+                    content: 'Подскажите, как настроить автоматические отчеты в бизнес-плане? Не могу найти эту опцию.',
+                    timestamp: timestamp3,
+                    category: 'help'
+                });
+                
+                // Save sample posts to localStorage
+                const posts = [
+                    {
+                        id: Date.now(),
+                        author: 'ТехПоддержка',
+                        content: 'Добро пожаловать на форум TechWave Pro! Здесь вы можете задавать вопросы, делиться опытом и общаться с другими пользователями. Пожалуйста, соблюдайте правила сообщества.',
+                        timestamp: timestamp1,
+                        category: 'help'
+                    },
+                    {
+                        id: Date.now(),
+                        author: 'Алексей',
+                        content: 'Отличная платформа! Особенно впечатлили возможности аналитики. Есть ли планы по расширению интеграций?',
+                        timestamp: timestamp2,
+                        category: 'interaction'
+                    },
+                    {
+                        id: Date.now(),
+                        author: 'Мария',
+                        content: 'Подскажите, как настроить автоматические отчеты в бизнес-плане? Не могу найти эту опцию.',
+                        timestamp: timestamp3,
+                        category: 'help'
+                    }
+                ];
+                
+                localStorage.setItem('forumPosts', JSON.stringify(posts));
+            }
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    closeModals();
+                }
+                if (e.target === signupModal) {
+                    closeModals();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
